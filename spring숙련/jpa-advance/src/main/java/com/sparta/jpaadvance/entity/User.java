@@ -17,7 +17,7 @@ public class User {
     private Long id;
     private String name;
 
-    @OneToMany(mappedBy = "user",cascade = {CascadeType.PERSIST, CascadeType.REMOVE}/*, cascade = CascadeType.PERSIST*/)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true /*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}*/)
     private List<Food> foodList = new ArrayList<>();
 
     public void addFoodList(Food food) {
