@@ -51,6 +51,25 @@ public class ProductController {
         productService.addFolder(productId, folderId, userDetails.getUser());
     }
 
+    @GetMapping("/folders/{folderId}/products")
+    public Page<ProductResponseDto> getProdutsInFolder(
+            @PathVariable Long folderId,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy,
+            @RequestParam("isAsc") boolean isAsc,
+            @AuthenticationPrincipal UserDetailsImpl userDetails
+    ){
+        return productService.getProdutsInFolder(
+                folderId,
+                page-1,
+                size,
+                sortBy,
+                isAsc,
+                userDetails.getUser()
+        );
+    }
+
 //    @GetMapping("/admin/products")
 //     public List<ProductResponseDto> getAllProducts(){
 //        return productService.getAllProducts();
