@@ -47,6 +47,7 @@ public class ProductService {
         return new ProductResponseDto(product);
     }
 
+    @Transactional(readOnly = true)
     public Page<ProductResponseDto> getProducts(User user, int page, int size, String sortBy, boolean isAsc) {
         Sort.Direction direction = isAsc ? Sort.Direction.ASC : Sort.Direction.DESC;
         Sort sort = Sort.by(direction, sortBy);
@@ -62,13 +63,6 @@ public class ProductService {
             productList = productRepository.findAll(pageable);
         }
 
-//        List<Product> productList = productRepository.findAllByUser(user);
-//        List<ProductResponseDto> responseDtoList = new ArrayList<>();
-//
-//        for (Product product : productList) {
-//            responseDtoList.add(new ProductResponseDto(product));
-//        }
-
         return productList.map(ProductResponseDto::new);
     }
 
@@ -80,14 +74,4 @@ public class ProductService {
         product.updateByItemDto(itemDto);
     }
 
-//    public List<ProductResponseDto> getAllProducts() {
-//        List<Product> productList = productRepository.findAll();
-//        List<ProductResponseDto> responseDtoList = new ArrayList<>();
-//
-//        for (Product product : productList) {
-//            responseDtoList.add(new ProductResponseDto(product));
-//        }
-//
-//        return responseDtoList;
-//    }
 }
